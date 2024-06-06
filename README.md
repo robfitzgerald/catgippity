@@ -1,2 +1,2 @@
-# cat-gippity
+# catgippity
 A meow-riffic service for advice

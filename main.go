@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 
+	"github.com/gin-gonic/gin"
 	"gopkg.in/yaml.v3"
 )
 
@@ -41,10 +43,18 @@ func main() {
 	}
 	// fmt.Printf("--- CatsFile:\n%v\n\n", cats_yaml)
 
-	d, err := yaml.Marshal(&cats_yaml)
-	if err != nil {
-		log.Fatalf("error: %v", err)
-	}
-	fmt.Printf("--- t dump:\n%s\n\n", string(d))
+	// d, err := yaml.Marshal(&cats_yaml)
+	// if err != nil {
+	// 	log.Fatalf("error: %v", err)
+	// }
+	// fmt.Printf("--- t dump:\n%s\n\n", string(d))
+
+	r := gin.Default()
+	r.GET("/config", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": cats_yaml,
+		})
+	})
+	r.Run() // http://0.0.0.0:8080/config
 
 }
