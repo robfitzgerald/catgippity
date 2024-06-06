@@ -1,0 +1,35 @@
+metadata:
+  image_directory: data/img
+
+cats:
+  - name: Red
+    created: "2024-06-04"
+    file: data/img/cat-red.png
+    color: red
+    variety: orange tabby
+    features: 
+      - sunglasses
+      - mohawk
+    personality:
+      - cool
+      - techy
+      - gamer
+      - smirky
+    prompt: the uploaded image is that of a cat that gives advice. what kind of welcome statement does this cat say when someone arrives for their advice appointment? keep it short, and sprinkle in the word "meow" into the welcome, and end with the word "meow".
+    comment: no image uploaded with prompt
+  
+  - name: Dick Meowington
+    created: "2024-06-06"
+    file: data/img/cat-dick-meowington.png
+    color: grey
+    variety: mackerel tabby
+    features: 
+      - flower brooch
+      - typewriter
+      - bowtie
+    personality:
+      - approachable
+      - classy
+      - thoughtful
+    prompt: Create an image of a cat that has an advice column in a 1920s newspaper. The cat is well dressed, has a flower broach on its lapel and is named Dick Meowington.
+    comment: name by Sarah; typo in "brooch"
