@@ -1,8 +1,14 @@
+// HTML object identifiers
 const form = document.getElementById('catQueryForm');
 const textField = document.getElementById('catQueryInput');
-const responseParagraph = document.getElementById('response');
 const catImageDiv = document.getElementById('catImageDiv');
-const responseDiv = document.getElementById('responseDiv');
+const conversationDiv = document.getElementById('responseDiv');
+
+// speaker attribute values
+const catSpeaker = "cat"
+const userSpeaker = "user"
+
+// URLs
 const apiUrl = '/welcome';
 const welcomeUrl = '/welcome';
 const queryUrl = '/query';
@@ -15,13 +21,35 @@ var isLoading = false;
 function appendSpinner() {
   const spinner = document.createElement("md-circular-progress")
   spinner.setAttribute("indeterminate", "")
-  responseDiv.appendChild(spinner)
+  conversationDiv.appendChild(spinner)
   isLoading = true;
 }
 
 function removeSpinner() {
-  responseDiv.removeChild(responseDiv.lastChild)
+  conversationDiv.removeChild(conversationDiv.lastChild)
   isLoading = false;
+}
+
+function addToHistory(speaker, content) {
+  const entry = document.createElement("p")
+  entry.innerText = content
+  entry.setAttribute("speaker", speaker)
+  conversationDiv.appendChild(entry)
+}
+
+function getHistoryAsText() {
+  var history = ""
+  for (const element of conversationDiv.children) {
+    const text = element.innerText
+    const speaker = element.getAttribute("speaker")
+    history += speaker + ": " + text + "\n"
+  }
+  // conversationDiv.children.forEach(element => {
+  //   const text = element.innerText
+  //   const speaker = element.getAttribute("speaker")
+  //   history += speaker + ": " + text + "\n"
+  // });
+  return history
 }
 
 function welcome(cat_name) {
@@ -53,10 +81,10 @@ function welcome(cat_name) {
       catImg.src = responseImgUrl;
       catImageDiv.appendChild(catImg)
 
-      const catWelcome = document.createElement("p")
-      catWelcome.innerText = responseText
-      responseDiv.appendChild(catWelcome)
-      // responseParagraph.innerText = responseText
+      addToHistory(catSpeaker, responseText)
+      // const catWelcome = document.createElement("p")
+      // catWelcome.innerText = responseText
+      // responseDiv.appendChild(catWelcome)
     })
     .catch(error => {
       console.error('Error:', error);
@@ -77,15 +105,16 @@ form.addEventListener('submit', event => {
   event.preventDefault();
 
   // add this question to the queue
-  const thisQuestion = document.createElement("p")
-  thisQuestion.innerText = textField.value
-  responseDiv.appendChild(thisQuestion)
+  addToHistory(userSpeaker, textField.value)
+  // const thisQuestion = document.createElement("p")
+  // thisQuestion.innerText = textField.value
+  // responseDiv.appendChild(thisQuestion)
 
   appendSpinner()
 
   const formData = {
     question: textField.value,
-    history: ""
+    history: getHistoryAsText()
   };
 
   fetch(queryUrl, {
@@ -97,10 +126,11 @@ form.addEventListener('submit', event => {
     .then(data => {
       console.log(data);
       removeSpinner()
-      const responseText = data.cat_talk
-      const catAdvice = document.createElement("p")
-      catAdvice.innerText = responseText
-      responseDiv.appendChild(catAdvice)
+      // const responseText = data.cat_talk
+      // const catAdvice = document.createElement("p")
+      // catAdvice.innerText = responseText
+      // responseDiv.appendChild(catAdvice)
+      addToHistory(catSpeaker, data.cat_talk)
 
     })
     .catch(error => {

@@ -1,6 +1,6 @@
 metadata:
   base_url: https://cat-gippity.com
-  image_directory: data/img
+  image_directory: pub/img/cat
 
 cats:
   - name: Red
