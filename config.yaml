@@ -1,10 +1,11 @@
 metadata:
+  base_url: https://cat-gippity.com
   image_directory: data/img
 
 cats:
   - name: Red
     created: "2024-06-04"
-    file: data/img/cat-red.png
+    file: cat-red.png
     color: red
     variety: orange tabby
     features: 
@@ -15,12 +16,13 @@ cats:
       - techy
       - gamer
       - smirky
-    prompt: the uploaded image is that of a cat that gives advice. what kind of welcome statement does this cat say when someone arrives for their advice appointment? keep it short, and sprinkle in the word "meow" into the welcome, and end with the word "meow".
+    prompt: create an image for a cat that runs an advice column in a retro geocities style. the cat is red, has sunglasses and a mohawk. the cat's personality is smarmy. the image has a square aspect ratio.
+    welcome: Meow, welcome to the Red Zone! I can help you get purrfectly equipped for your gaming needs. Just meow at me and I'll guide you to your next epic win. 
     comment: no image uploaded with prompt
   
   - name: Dick Meowington
     created: "2024-06-06"
-    file: data/img/cat-dick-meowington.png
+    file: cat-dick-meowington.png
     color: grey
     variety: mackerel tabby
     features: 
@@ -32,4 +34,5 @@ cats:
       - classy
       - thoughtful
     prompt: Create an image of a cat that has an advice column in a 1920s newspaper. The cat is well dressed, has a flower broach on its lapel and is named Dick Meowington.
+    welcome: Hello there, purrfect stranger! It's lovely to have you here, and I hope I can help you find exactly what you're looking for. meow.
     comment: name by Sarah; typo in "brooch"
