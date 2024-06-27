@@ -3,7 +3,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Cat Gippity v0.1</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <script type="importmap">
     {
       "imports": {
@@ -11,64 +15,120 @@
       }
     }
   </script>
+
 <script type="module">
   import '@material/web/all.js';
   import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
 
   document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
 </script>
-<script>
-  // default cat advisor
-  cat_name = "dick"
-</script>
+
+<style>
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 6 0vh;
+    padding: 16px;
+  }
+
+  .chat-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-image {
+    width: 100%;
+    /* Initially takes full width */
+    height: 256px;
+    /* Set a fixed height for square image */
+    object-fit: cover;
+    /* Maintain aspect ratio and cover area */
+  }
+
+  /* Media query for landscape displays */
+  @media screen and (min-width: 768px) {
+    .mdc-container {
+      max-width: 700px;
+      /* Adjust the width as needed */
+    }
+
+    .chat-image {
+      width: auto;
+      /* Allow image to shrink */
+      margin-right: 16px;
+      /* Add margin for spacing */
+    }
+
+    .chat-container {}
+
+    /* .chat-content {
+      flex-direction: row;
+    } */
+
+    .chat-input {
+      flex: 1;
+      /* Allow chat input to fill remaining space */
+    }
+  }
+
+  .chat-footer {
+    background-color: #f5f5f5;
+    text-align: center;
+    padding: 8px;
+    margin-top: auto;
+    /* Push footer to the bottom */
+  }
+</style>
+
 </head>
 
 <body>
 
-  <div id="catImageDiv"></div>
-
-  <div id="responseDiv"></div>
-
-  <h1>Cat Gippity 0.1</h1>
-  <form id="catQueryForm">
-    <md-outlined-text-field id="catQueryInput" label="Query" placeholder="Type your query here" type="textarea">
-      <md-icon slot="leading-icon">search</md-icon>
-    </md-outlined-text-field>
-    <!-- <label for="catQueryInput">Enter Text:</label> -->
-    <!-- <input type="text" id="catQueryInput" name="text" required> -->
-    <button type="submit">Send</button>
-  </form>
-
-  <!-- https://github.com/material-components/material-web/blob/main/docs/components/text-field.md -->
-
-
-  <!-- <div>
-    <p id="response"></p>
-  </div> -->
-
-
-
-  <!-- <h1 class="md-typescale-display-medium">Hello Material!</h1>
-  <form>
-    <p class="md-typescale-body-medium">Check out these controls in a form!</p>
-    <md-checkbox></md-checkbox>
-    <div>
-      <md-radio name="group"></md-radio>
-      <md-radio name="group"></md-radio>
-      <md-radio name="group"></md-radio>
+  <div class="chat-container">
+    <div id="catImageDiv"></div>
+    <div id="conversationList" class="chat-content">
+      <!-- <md-card class="user-message">
+        <div class="message-content">
+          <p>This is a message from the user.</p>
+        </div>
+      </md-card>
+      <md-card class="service-message">
+        <div class="message-content">
+          <p>This is a message from the service.</p>
+        </div>
+        <md-icon class="service-icon">info</md-icon>
+      </md-card> -->
     </div>
-    <md-outlined-text-field label="Favorite color" value="Purple"></md-outlined-text-field>
-    <md-outlined-button type="reset">Reset</md-outlined-button>
-  </form>
-  <style>
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
-    }
-  </style> -->
+    <div class="chat-input">
+      <form id="catQueryForm" class="chat-input-form">
+        <div class="mdc-text-field mdc-text-field--outlined">
+
+          <md-outlined-text-field id="catQueryInput" label="Query" placeholder="Type your query here" type="textarea">
+
+            <!-- this isn't rendering, not sure what i'm doing wrong, maybe a conflict with the parent nodes -->
+            <!-- <md-icon slot="leading-icon">search</md-icon> -->
+            <!-- <i class="material-icons mdc-text-field__icon">search</i> -->
+          </md-outlined-text-field>
+        </div>
+      </form>
+      <!-- <md-text-field 
+        id="message-input" 
+        label="Type your message" 
+        outlined></md-text-field>
+      <md-button type="button" raised>Send</md-button> -->
+    </div>
+  </div>
+
+  <footer class="chat-footer">
+    <a href="#">Contact</a> |
+    <a href="#">About Us</a>
+  </footer>
 
   <script src="/js/cat-gippity.js"></script>
-  <script>welcome(cat_name)</script>
+  <script>
+    getCatFromUrl()
+    welcome()
+  </script>
+
 </body>
