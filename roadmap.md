@@ -6,6 +6,7 @@ Building the simplest thing to show to my friends. Uses as few dependencies as p
 
 #### tasks
 
+- [x] start actually recording my tasks instead of winging it 
 - [x] setup free tier gemini project to replace paid tier
 - [x] pass history as context to query
 - [ ] handle error responses
@@ -13,7 +14,7 @@ Building the simplest thing to show to my friends. Uses as few dependencies as p
   - [error payloads](https://docs.gemini.com/rest-api/#error-payload)
 - [x] layout
 - [x] style message boxes (optional)
-- [ ] contact/attribution/legal in footer
+- [x] contact/attribution/legal in footer
 - [ ] tip jar
 - [ ] simple hard-coded links for loading different cats
 - [ ] publish v0.1 to google, run server
