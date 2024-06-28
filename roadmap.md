@@ -1,6 +1,6 @@
 # ROADMAP
 
-## v0.1 - Prototype
+### v0.1 - Prototype
 
 Building the simplest thing to show to my friends. Uses as few dependencies as possible, global state variables, etc. Built on free tier Gemini Flash.
 
@@ -17,3 +17,7 @@ Building the simplest thing to show to my friends. Uses as few dependencies as p
 - [ ] tip jar
 - [ ] simple hard-coded links for loading different cats
 - [ ] publish v0.1 to google, run server
+
+## future ideas
+
+- modify the cat image using the Vertex API and Imagen, based on the question and answer!
