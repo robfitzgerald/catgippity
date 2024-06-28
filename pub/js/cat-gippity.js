@@ -21,14 +21,10 @@ var catName = "dick"
 
 function getCatFromUrl() {
   const queryString = window.location.search;
-  console.log(queryString); // Outputs the entire query string (e.g., ?param1=value1&param2=value2)
-
-  // Accessing specific parameters
   const urlParams = new URLSearchParams(queryString);
   const catIdLookup = urlParams.get('cat_id');
-  const catNameSelected = catIds.get(catIdLookup)
-  if (catNameSelected != undefined) {
-    catName = catNameSelected
+  if (catIds.has(catIdLookup)) {
+    catName = catIdLookup
   }
 }
 

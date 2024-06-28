@@ -15,10 +15,16 @@ Building the simplest thing to show to my friends. Uses as few dependencies as p
 - [x] layout
 - [x] style message boxes (optional)
 - [x] contact/attribution/legal in footer
-- [ ] tip jar
-- [ ] simple hard-coded links for loading different cats
+- [x] tip jar
+- [x] simple hard-coded links for loading different cats
 - [ ] publish v0.1 to google, run server
 
 ## future ideas
 
-- modify the cat image using the Vertex API and Imagen, based on the question and answer!
+- feature: visual interactivity
+  - modify the cat image using the Vertex API and Imagen, based on the question and answer
+- feature: share link to thread
+- debt: organize stateful code in javascript (using React/Angular/etc)
+- debt: install lodash or equivalent; replace imperative ops + bad code style
+- feature: put more effort into visual experience
+- 
