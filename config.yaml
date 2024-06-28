@@ -34,5 +34,5 @@ cats:
       - classy
       - thoughtful
     prompt: Create an image of a cat that has an advice column in a 1920s newspaper. The cat is well dressed, has a flower broach on its lapel and is named Dick Meowington.
-    welcome: Hello there, purrfect stranger! It's lovely to have you here, and I hope I can help you find exactly what you're looking for. meow.
-    comment: name by Sarah; typo in "brooch"
+    welcome: Hello there, purrfect stranger! It's lovely to have you here, and I hope I can help you find exactly what you're looking for. Meow.
+    comment: name by Sarah; typo in "brooch"; last meow wasn't capiltalized

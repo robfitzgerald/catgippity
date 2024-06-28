@@ -6,7 +6,19 @@
 <title>Cat Gippity v0.1</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<style>
+  .material-symbols-outlined {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
+  }
+</style>
 
 <script type="importmap">
     {
@@ -22,6 +34,11 @@
 
   document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
 </script>
+
+<!-- materialize for pagination of lists -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 
 <style>
   .chat-container {
@@ -60,7 +77,12 @@
       /* Add margin for spacing */
     }
 
-    .chat-container {}
+    .chat-input-form {
+      flex: 1;
+      width: 100%;
+    }
+
+    /* .chat-container {} */
 
     /* .chat-content {
       flex-direction: row;
@@ -87,42 +109,23 @@
 
   <div class="chat-container">
     <div id="catImageDiv"></div>
-    <div id="conversationList" class="chat-content">
-      <!-- <md-card class="user-message">
-        <div class="message-content">
-          <p>This is a message from the user.</p>
-        </div>
-      </md-card>
-      <md-card class="service-message">
-        <div class="message-content">
-          <p>This is a message from the service.</p>
-        </div>
-        <md-icon class="service-icon">info</md-icon>
-      </md-card> -->
-    </div>
+    <md-list id="conversationList" class="chat-content"></md-list>
+
     <div class="chat-input">
       <form id="catQueryForm" class="chat-input-form">
         <div class="mdc-text-field mdc-text-field--outlined">
 
           <md-outlined-text-field id="catQueryInput" label="Query" placeholder="Type your query here" type="textarea">
-
-            <!-- this isn't rendering, not sure what i'm doing wrong, maybe a conflict with the parent nodes -->
-            <!-- <md-icon slot="leading-icon">search</md-icon> -->
-            <!-- <i class="material-icons mdc-text-field__icon">search</i> -->
           </md-outlined-text-field>
         </div>
       </form>
-      <!-- <md-text-field 
-        id="message-input" 
-        label="Type your message" 
-        outlined></md-text-field>
-      <md-button type="button" raised>Send</md-button> -->
     </div>
   </div>
 
   <footer class="chat-footer">
-    <a href="#">Contact</a> |
-    <a href="#">About Us</a>
+    <a href="https://www.github.com/robfitzgerald">github account</a> |
+    <a href="https://robfitzgerald.github.io/">github pages</a> |
+    <a href="https://github.com/robfitzgerald/catgippity">repo (BSD-3)</a>
   </footer>
 
   <script src="/js/cat-gippity.js"></script>

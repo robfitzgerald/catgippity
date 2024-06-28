@@ -45,24 +45,23 @@ function deactivateSpinner() {
 }
 
 function addToHistory(speaker, content) {
-  //       <md-card class="user-message">
-  //   <div class="message-content">
-  //   <p>This is a message from the user.</p>
-  // </div>
-  // </md-card>
-  const card = document.createElement("md-card")
+
+  const card = document.createElement("md-list-item")
   card.className = "user-message"
   card.setAttribute("speaker", speaker)
 
-  const textContent = document.createElement("p")
-  textContent.className = "chat-content"
-  textContent.innerText = content
-  card.appendChild(textContent)
+  const mdIcon = document.createElement("md-icon")
+  mdIcon.setAttribute("slot", "start")
+  const iconName = speaker == userSpeaker ? "question_mark" : "pets"
+  mdIcon.innerText = iconName
 
-  // const entry = document.createElement("ul")
-  // entry.className = "mdc-list mdc-list--two-line"
-  // entry.innerText = content
-  // entry.setAttribute("speaker", speaker)
+  const p = document.createElement("p")
+  p.className = "chat-content"
+  p.innerText = content
+
+  card.appendChild(p) // invariant: p is first child of md-list-item
+  card.appendChild(mdIcon)
+
   conversationList.appendChild(card)
 }
 
@@ -87,9 +86,6 @@ function welcome() {
   activateSpinner()
   console.log("welcome called with cat: " + catName)
   const catId = catIds.get(catName)
-  // const formData = {
-  //   cat_id: cat_id
-  // };
   const welcomeUrlWithCatId = welcomeUrl + "/" + catId
 
   fetch(welcomeUrlWithCatId, {
