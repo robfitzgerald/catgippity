@@ -14,6 +14,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/google/generative-ai-go/genai"
+	"golang.org/x/oauth2/google"
 	"google.golang.org/api/option"
 	"gopkg.in/yaml.v3"
 )
@@ -27,14 +28,14 @@ func main() {
 		fmt.Println("Error getting current working directory:", err)
 		return
 	}
-	cats_filename := filepath.Join(dir, "config.yaml")
-	cats_file, err := os.Open(cats_filename)
+	catsFilename := filepath.Join(dir, "config.yaml")
+	catsFile, err := os.Open(catsFilename)
 	if err != nil {
 		fmt.Println("Error finding file data/yaml/cats.yaml:", err)
 		return
 	}
-	defer cats_file.Close() // Close the file on exit
-	cats_str, err := io.ReadAll(cats_file)
+	defer catsFile.Close() // Close the file on exit
+	cats_str, err := io.ReadAll(catsFile)
 	if err != nil {
 		fmt.Println("Error reading file data/yaml/cats.yaml:", err)
 		return
@@ -47,32 +48,51 @@ func main() {
 		return
 	}
 
-	client, err := genai.NewClient(ctx, option.WithAPIKey(os.Getenv("API_KEY")))
+	// find the authentication for this app to access gemini models
+	apiKey := os.Getenv("API_KEY")
+	var auth option.ClientOption
+	if apiKey != "" {
+		auth = option.WithAPIKey(apiKey)
+		fmt.Println("using api key from environment")
+	} else {
+		fmt.Println("no credentials provided via environment. assuming service account, loading app. default credentials")
+		cred := google.Credentials{}
+		cred.GetUniverseDomain()
+		auth = option.WithCredentials(&cred)
+	}
+
+	client, err := genai.NewClient(ctx, auth)
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
 	defer client.Close()
-
-	// The Gemini 1.5 models are versatile and work with most use cases
 	model := client.GenerativeModel("gemini-1.5-flash")
-	// model := client.GenerativeModel("gemini-1.5-pro")
 
 	r := gin.Default()
-
-	default_conf := cors.DefaultConfig()
+	server_cors := cors.DefaultConfig()
 	server_port := os.Getenv("PORT")
-	if server_port != "8080" {
-		default_conf.AllowOrigins = []string{fmt.Sprintf("http://localhost:%s", server_port)} // testing
+	server_host, server_host_exists := os.LookupEnv("HOST")
+
+	if server_host_exists {
+		fmt.Printf("running on %s:%s\n", server_host, server_port)
+		server_cors.AllowOrigins = []string{server_host}
+	} else if server_port != "8080" {
+		fmt.Printf("running on http://localhost:%s\n", server_port)
+		server_cors.AllowOrigins = []string{fmt.Sprintf("http://localhost:%s", server_port)} // testing
+	} else {
+		fmt.Printf("running on http://localhost:8080\n")
 	}
 
-	r.Use(cors.New(default_conf))
+	r.Use(cors.New(server_cors))
 
+	// server file access patterns
 	r.LoadHTMLFiles("index.html")
 	r.Static("/js", "./pub/js")
 	r.Static("/img", "./pub/img")
 	r.StaticFile("/favicon.ico", "./favicon.ico")
 
+	// routes
 	r.GET("/config", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": config,
@@ -168,6 +188,6 @@ func main() {
 		}
 	})
 
-	r.Run() // http://0.0.0.0:8080/config
+	r.Run()
 
 }

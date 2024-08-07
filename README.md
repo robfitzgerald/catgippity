@@ -9,9 +9,7 @@ I found that to be such a hilarious metaphor for what is going on in the commerc
 
 ## Version 0.1
 
-I used this silly idea as an opportunity to learn Go and to familiarize myself with a LLM API while on parental leave in early summer 2024. This version is designed to run on GCP using the free tier of the Gemini 1.5 Flash model. 
-
-If I come back to work on another version, I'll be working on the items in the [roadmap](/roadmap.md).
+I used this silly idea as an opportunity to learn Go and to familiarize myself with a LLM API while on parental leave in early summer 2024. This version is designed to run on GCP using the Gemini 1.5 Flash model. 
 
 ## muchos muchos graçias
 
@@ -22,3 +20,10 @@ Thank you to the following:
 - [Material Design 3](https://m3.material.io/develop/web)
 - [Go](https://go.dev/)
 - [Gin](https://gin-gonic.com/)
+
+## support
+
+Do you like catgippity? You want to help offset costs or encourage more development? Buy me a coffee!
+
+<iframe src="https://github.com/sponsors/robfitzgerald/card" title="Sponsor robfitzgerald" height="225" width="600"
+		style="border: 0;"></iframe>
