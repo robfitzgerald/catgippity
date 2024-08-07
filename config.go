@@ -25,7 +25,6 @@ type CatRecord struct {
 
 type ConfigFile struct {
 	Metadata struct {
-		BaseUrl        string `yaml:"base_url"`
 		ImageDirectory string `yaml:"image_directory"`
 	} `yaml:"metadata"`
 	Cats []CatRecord
