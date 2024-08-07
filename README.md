@@ -23,4 +23,4 @@ Thank you to the following:
 
 ## support
 
-Do you like catgippity? You want to help offset costs or encourage more development? Buy me a coffee! See sponsor link on the right side of the page. Thank you, meow!
+Do you like catgippity? You want to help offset costs or encourage more development? Buy me a coffee! See sponsor link on this page. Thank you, meow!
