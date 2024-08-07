@@ -1,11 +1,34 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
 	"github.com/google/generative-ai-go/genai"
+	"golang.org/x/oauth2/google"
+	"google.golang.org/api/option"
 )
+
+func load_client(ctx context.Context, apiKey string) (*genai.Client, error) {
+	var auth option.ClientOption
+	if apiKey != "" {
+		auth = option.WithAPIKey(apiKey)
+		fmt.Println("using api key from environment")
+	} else {
+		fmt.Println("no credentials provided via environment. assuming service account, loading app. default credentials")
+		cred := google.Credentials{}
+		cred.GetUniverseDomain()
+		auth = option.WithCredentials(&cred)
+	}
+
+	client, err := genai.NewClient(ctx, auth)
+	if err != nil {
+		return nil, err
+	}
+	return client, nil
+
+}
 
 func cat_welcome_prompt(
 	record CatRecord, png []byte) []genai.Part {

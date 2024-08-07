@@ -3,65 +3,31 @@ package main
 import (
 	"context"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/google/generative-ai-go/genai"
-	"golang.org/x/oauth2/google"
-	"google.golang.org/api/option"
-	"gopkg.in/yaml.v3"
 )
 
 func main() {
 
 	ctx := context.Background()
 
+	// static website configuration
 	dir, err := os.Getwd()
-	if err != nil {
-		fmt.Println("Error getting current working directory:", err)
-		return
-	}
-	catsFilename := filepath.Join(dir, "config.yaml")
-	catsFile, err := os.Open(catsFilename)
-	if err != nil {
-		fmt.Println("Error finding file data/yaml/cats.yaml:", err)
-		return
-	}
-	defer catsFile.Close() // Close the file on exit
-	cats_str, err := io.ReadAll(catsFile)
-	if err != nil {
-		fmt.Println("Error reading file data/yaml/cats.yaml:", err)
-		return
-	}
-
-	config := ConfigFile{}
-	err2 := yaml.Unmarshal(cats_str, &config)
-	if err2 != nil {
+	config, conf_err := load_config(dir)
+	if conf_err != nil {
 		log.Fatalf("error: %v", err)
 		return
 	}
 
-	// find the authentication for this app to access gemini models
+	// load Gemini Client and Model
 	apiKey := os.Getenv("API_KEY")
-	var auth option.ClientOption
-	if apiKey != "" {
-		auth = option.WithAPIKey(apiKey)
-		fmt.Println("using api key from environment")
-	} else {
-		fmt.Println("no credentials provided via environment. assuming service account, loading app. default credentials")
-		cred := google.Credentials{}
-		cred.GetUniverseDomain()
-		auth = option.WithCredentials(&cred)
-	}
-
-	client, err := genai.NewClient(ctx, auth)
+	client, err := load_client(ctx, apiKey)
 	if err != nil {
 		log.Fatal(err)
 		return
