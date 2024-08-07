@@ -84,11 +84,7 @@ function welcome() {
   const catId = catIds.get(catName)
   const welcomeUrlWithCatId = welcomeUrl + "/" + catId
 
-  fetch(welcomeUrlWithCatId, {
-    method: 'GET',
-    // headers: { 'Content-Type': 'application/json' },
-    // body: JSON.stringify(formData)
-  })
+  fetch(welcomeUrlWithCatId, { method: 'GET' })
     .then(response => response.json())
     .then(data => {
       console.log(data);

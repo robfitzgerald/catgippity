@@ -12,9 +12,9 @@ import (
 )
 
 // reads a pre-recorded welcome message from a cat
-func welcome(config ConfigFile, cwd string, cat_id int) (string, error) {
+func welcome(config ConfigFile, cat_id int) (string, error) {
 	if cat_id < 0 || cat_id >= len(config.Cats) {
-		return "", fmt.Errorf("cat_id %i is invalid", cat_id)
+		return "", fmt.Errorf("cat_id %d is invalid", cat_id)
 	}
 	record := config.Cats[cat_id]
 	return record.Welcome, nil
@@ -46,6 +46,7 @@ func welcome_workflow(config ConfigFile, cwd string, cat_id int, model *genai.Ge
 	return fmt.Sprintf("%s", res.Candidates[0].Content.Parts[0]), nil
 }
 
+// submits a query to Gemini based on a user input
 func query_workflow(config ConfigFile, cwd string, cat_id int, question string, history string, model *genai.GenerativeModel, ctx context.Context) (string, error) {
 	record := config.Cats[cat_id]
 	img_filepath := filepath.Join(cwd, config.Metadata.ImageDirectory, record.File)

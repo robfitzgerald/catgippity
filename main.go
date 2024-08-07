@@ -41,13 +41,13 @@ func main() {
 	server_host, server_host_exists := os.LookupEnv("HOST")
 
 	if server_host_exists {
-		fmt.Printf("running on %s:%s\n", server_host, server_port)
+		log.Printf("running on %s:%s\n", server_host, server_port)
 		server_cors.AllowOrigins = []string{server_host}
 	} else if server_port != "8080" {
-		fmt.Printf("running on http://localhost:%s\n", server_port)
+		log.Printf("running on http://localhost:%s\n", server_port)
 		server_cors.AllowOrigins = []string{fmt.Sprintf("http://localhost:%s", server_port)} // testing
 	} else {
-		fmt.Printf("running on http://localhost:8080\n")
+		log.Printf("running on http://localhost:8080\n")
 	}
 
 	r.Use(cors.New(server_cors))
@@ -110,7 +110,7 @@ func main() {
 				"error": cat_id_err.Error(),
 			})
 		} else {
-			welcome_str, welcome_err := welcome(config, dir, cat_id)
+			welcome_str, welcome_err := welcome(config, cat_id)
 			img_url, img_err := get_cat_image_url(config, dir, cat_id)
 			if welcome_err != nil {
 				c.JSON(http.StatusInternalServerError, gin.H{
