@@ -31,7 +31,6 @@
 <script type="module">
   import '@material/web/all.js';
   import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
-
   document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
 </script>
 
@@ -72,6 +71,8 @@
 
     .chat-image {
       width: auto;
+      max-width: 100%;
+      height: auto;
       /* Allow image to shrink */
       margin-right: 16px;
       /* Add margin for spacing */
@@ -79,7 +80,7 @@
 
     .chat-input-form {
       flex: 1;
-      width: 100%;
+      max-width: 100%;
     }
 
     /* .chat-container {} */
@@ -90,7 +91,17 @@
 
     .chat-input {
       flex: 1;
+      width: 100%;
+      max-width: 100%;
       /* Allow chat input to fill remaining space */
+    }
+
+    .mdc-text-field {
+      width: 100%;
+    }
+
+    .mdc-outlined-text-field {
+      width: 100%;
     }
   }
 
@@ -115,7 +126,8 @@
       <form id="catQueryForm" class="chat-input-form">
         <div class="mdc-text-field mdc-text-field--outlined">
 
-          <md-outlined-text-field id="catQueryInput" label="Query" placeholder="Type your query here" type="textarea">
+          <md-outlined-text-field style="width:100%" id="catQueryInput" label="Query" placeholder="Type your query here"
+            type="textarea">
           </md-outlined-text-field>
         </div>
       </form>
