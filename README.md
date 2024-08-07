@@ -1,5 +1,5 @@
 # catgippity
-A meow-riffic service for advice
+A meow-riffic service for advice 
 
 ## background
 
@@ -23,7 +23,4 @@ Thank you to the following:
 
 ## support
 
-Do you like catgippity? You want to help offset costs or encourage more development? Buy me a coffee!
-
-<iframe src="https://github.com/sponsors/robfitzgerald/card" title="Sponsor robfitzgerald" height="225" width="600"
-		style="border: 0;"></iframe>
+Do you like catgippity? You want to help offset costs or encourage more development? Buy me a coffee! See sponsor link on the right side of the page. Thank you, meow!
