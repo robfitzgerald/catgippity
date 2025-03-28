@@ -1,5 +1,6 @@
 metadata:
   image_directory: pub/img/cat
+  model_name: gemini-2.0-flash
 
 cats:
   - name: Red

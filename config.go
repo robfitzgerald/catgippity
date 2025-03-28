@@ -26,6 +26,7 @@ type CatRecord struct {
 type ConfigFile struct {
 	Metadata struct {
 		ImageDirectory string `yaml:"image_directory"`
+		ModelName      string `yaml:"model_name"`
 	} `yaml:"metadata"`
 	Cats []CatRecord
 }
