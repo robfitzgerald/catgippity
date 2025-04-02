@@ -33,13 +33,13 @@ func main() {
 		return
 	}
 	defer client.Close()
-	model := client.GenerativeModel("gemini-1.5-flash")
+	model := client.GenerativeModel(config.Metadata.ModelName)
 
+	// configure host/port for server
 	r := gin.Default()
 	server_cors := cors.DefaultConfig()
 	server_port := os.Getenv("PORT")
 	server_host, server_host_exists := os.LookupEnv("HOST")
-
 	if server_host_exists {
 		log.Printf("running on %s:%s\n", server_host, server_port)
 		server_cors.AllowOrigins = []string{server_host}
@@ -49,8 +49,11 @@ func main() {
 	} else {
 		log.Printf("running on http://localhost:8080\n")
 	}
-
 	r.Use(cors.New(server_cors))
+
+	// apply in-memory rate limiting
+	state := RateLimiterState{}
+	r.Use(rate_limit_middleware(&state, config.Metadata.TimeWindowSeconds, config.Metadata.RateLimit))
 
 	// server file access patterns
 	r.LoadHTMLFiles("index.html")

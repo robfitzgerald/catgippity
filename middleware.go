@@ -5,9 +5,13 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"path/filepath"
+	"sync"
+	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/google/generative-ai-go/genai"
 )
 
@@ -71,4 +75,47 @@ func query_workflow(config ConfigFile, cwd string, cat_id int, question string, 
 		return "", fmt.Errorf("no parts in first candidate response")
 	}
 	return fmt.Sprintf("%s", res.Candidates[0].Content.Parts[0]), nil
+}
+
+// track the Count of API calls since the beginning of the last time window
+type RateLimiterState struct {
+	mu        sync.Mutex
+	Count     int
+	LastReset time.Time
+}
+
+// start a new time window with a count of zero
+func (state *RateLimiterState) Reset() {
+	state.mu.Lock()
+	defer state.mu.Unlock()
+
+	state.Count = 0
+	state.LastReset = time.Now()
+}
+
+// add one to the count of API calls
+func (state *RateLimiterState) Increment() {
+	state.mu.Lock()
+	defer state.mu.Unlock()
+
+	state.Count += 1
+}
+
+// keeps track of the rate of usage for the Gemini API. this rate limiting is designed
+// so that, if the number of API endpoints increases, it could be tracked by a map[string]RateLimiterState
+func rate_limit_middleware(state *RateLimiterState, timeWindowSeconds int, rateLimit int) gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		if time.Since(state.LastReset).Seconds() > float64(timeWindowSeconds) {
+			state.Reset()
+		}
+
+		if state.Count >= rateLimit {
+			c.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{"error": "Rate limit exceeded. Please try again later."})
+			return
+		}
+		state.Increment()
+
+		c.Next()
+	}
 }
