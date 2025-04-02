@@ -53,7 +53,7 @@ func main() {
 
 	// apply in-memory rate limiting
 	state := RateLimiterState{}
-	r.Use(rate_limit_middleware(&state, config.Metadata.TimeWindowSeconds, config.Metadata.RateLimit))
+	test_rate_limiting := rate_limit_middleware(&state, config.Metadata.TimeWindowSeconds, config.Metadata.RateLimit)
 
 	// server file access patterns
 	r.LoadHTMLFiles("index.html")
@@ -72,7 +72,7 @@ func main() {
 		c.HTML(http.StatusOK, "index.html", gin.H{})
 	})
 
-	r.GET("/custom-welcome/*cat_id", func(c *gin.Context) {
+	r.GET("/custom-welcome/*cat_id", test_rate_limiting, func(c *gin.Context) {
 		cat_id_str := strings.ReplaceAll(c.Param("cat_id"), "/", "")
 		if cat_id_str == "" {
 			cat_id_str = "0"
@@ -132,8 +132,7 @@ func main() {
 		}
 	})
 
-	r.POST("/query", func(c *gin.Context) {
-
+	r.POST("/query", test_rate_limiting, func(c *gin.Context) {
 		type QueryRequestBody struct {
 			Question string `json:"question" binding:"required"`
 			History  string `json:"history"`

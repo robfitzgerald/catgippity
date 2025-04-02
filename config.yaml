@@ -1,8 +1,8 @@
 metadata:
   image_directory: pub/img/cat
   model_name: gemini-2.0-flash
-  time_window_seconds: 60
-  rate_limit: 1
+  time_window_seconds: 3600
+  rate_limit: 100
 
 cats:
   - name: Red

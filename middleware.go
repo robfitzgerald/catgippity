@@ -111,7 +111,7 @@ func rate_limit_middleware(state *RateLimiterState, timeWindowSeconds int, rateL
 		}
 
 		if state.Count >= rateLimit {
-			c.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{"error": "Rate limit exceeded. Please try again later."})
+			c.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{"cat_talk": "Thanks for using catgippity! Our server is currently rate-limited, please try again later. MEOW!"})
 			return
 		}
 		state.Increment()

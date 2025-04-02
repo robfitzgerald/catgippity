@@ -117,6 +117,12 @@ function welcome() {
 
 }
 
+// textField.addEventListener("beforeinput", (event) => {
+//   if (event.inputType === 'insertParagraph') {
+//     event.preventDefault(); // Prevent the newline from being inserted
+//   }
+// });
+
 form.addEventListener('submit', event => {
 
   event.preventDefault();
@@ -144,7 +150,6 @@ form.addEventListener('submit', event => {
       .then(data => {
         console.log(data);
         deactivateSpinner()
-
         addToHistory(catSpeaker, data.cat_talk)
 
       })
