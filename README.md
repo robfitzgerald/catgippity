@@ -7,10 +7,6 @@ I was listening to a podcast and they were discussing the question of whether or
 
 I found that to be such a hilarious metaphor for what is going on in the commercialization space for LLMs, and the question of AGIs. Those arguments sure make AGIs seem improbable! But what if we just needed LLMs to give us light-hearted advice from a cat? Is that something the internet is a great training corpus for? Maybe this will be peak-LLM, the Cat Gippity experience; the greatest LLM service that could ever exist. At least I can try!
 
-## Version 0.1
-
-I used this silly idea as an opportunity to learn Go and to familiarize myself with a LLM API while on parental leave in early summer 2024. This version is designed to run on GCP using the Gemini 1.5 Flash model. 
-
 ## muchos muchos graçias
 
 Thank you to the following:
@@ -24,3 +20,14 @@ Thank you to the following:
 ## support
 
 Do you like catgippity? You want to help offset costs or encourage more development? Buy me a coffee! See sponsor link on this page. Thank you, meow!
+
+# CHANGELOG
+
+## Version 0.1.0
+
+I used this silly idea as an opportunity to learn Go and to familiarize myself with a LLM API while on parental leave in early summer 2024. This version is designed to run on GCP using the Gemini 1.5 Flash model. 
+
+## Version 0.1.1
+
+Updated to Gemini 2.0 Flash and added simple in-memory rate limiting to the site.
+
